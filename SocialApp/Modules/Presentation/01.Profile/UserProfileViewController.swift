@@ -28,8 +28,6 @@ class UserProfileViewController: UIViewController {
         albumsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
 
-        
-
 }
 
 // MARK: - Setup-TableView
@@ -46,8 +44,9 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource{
     }
         
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Selected: \(items[indexPath.row])")
+//        print("Selected: \(items[indexPath.row])")
         tableView.deselectRow(at: indexPath, animated: true)
+        
     }
     
 }

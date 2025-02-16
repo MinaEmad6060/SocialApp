@@ -25,7 +25,7 @@ final class AppCoordinator: Coordinator {
     }
     
     func displayProfileScreen() {
-        let viewController = UserProfileViewController()
+        let viewController = AlbumDetailsViewController()
         self.router.push(viewController, animated: true)
     }
     
