@@ -25,10 +25,8 @@ final class AppCoordinator: Coordinator {
     }
     
     func displayProfileScreen() {
-//        let homeprofileViewModel = HotelsHomeViewModel(coordinator: self, useCase: homeUseCase())
-//        let apartmentViewModel = ApartmentsViewModel(coordinator: self, useCase: apartmentsUseCase())
-//        let viewController = HotelsViewHomeController(homeViewModel: homeViewModel, apartmenthomeViewModel: apartmentViewModel)
-//        self.router.push(viewController)
+        let viewController = UserProfileViewController()
+        self.router.push(viewController, animated: true)
     }
     
     

@@ -11,10 +11,10 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		40A819B42D6230150023D9A7 /* Exceptions for "SocialApp" folder in "SocialApp" target */ = {
+		403E55242D6261AA00B7B5D6 /* Exceptions for "SocialApp" folder in "SocialApp" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				AppSetup/Info.plist,
+				Info.plist,
 			);
 			target = 40A819A12D6230140023D9A7 /* SocialApp */;
 		};
@@ -24,7 +24,7 @@
 		40A819A42D6230140023D9A7 /* SocialApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				40A819B42D6230150023D9A7 /* Exceptions for "SocialApp" folder in "SocialApp" target */,
+				403E55242D6261AA00B7B5D6 /* Exceptions for "SocialApp" folder in "SocialApp" target */,
 			);
 			path = SocialApp;
 			sourceTree = "<group>";

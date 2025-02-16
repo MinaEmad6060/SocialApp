@@ -28,7 +28,7 @@ final class AppRouter {
 
 extension AppRouter: Router {
     
-    func push(_ viewController: UIViewController, animated: Bool) {
+    func push(_ viewController: UIViewController, animated: Bool = true) {
         navigationController.pushViewController(viewController, animated: animated)
     }
    
