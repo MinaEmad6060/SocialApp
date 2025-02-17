@@ -8,12 +8,12 @@
 
 protocol SocialCoordinatorProtocol: Coordinator {
     func displayProfileScreen()
-    func displayAlbumScreen()
+    func displayAlbumScreen(albumId: Int)
 }
 
 
 //MARK: - APP-COORDINATOR
-final class socialCoordinator: SocialCoordinatorProtocol {
+final class SocialCoordinator: SocialCoordinatorProtocol {
  
     var router: any Router
     
@@ -27,9 +27,9 @@ final class socialCoordinator: SocialCoordinatorProtocol {
         self.router.push(viewController, animated: true)
     }
     
-    func displayAlbumScreen() {
+    func displayAlbumScreen(albumId: Int) {
         let viewModel = SocialViewModel(coordinator: self, useCase: socialUseCase())
-        let viewController = AlbumDetailsViewController(viewModel: viewModel)
+        let viewController = AlbumDetailsViewController(viewModel: viewModel, albumId: albumId)
         self.router.push(viewController, animated: true)
     }
     
@@ -37,7 +37,7 @@ final class socialCoordinator: SocialCoordinatorProtocol {
 
 
 //MARK: - Init-UseCase
-extension socialCoordinator {
+extension SocialCoordinator {
     
     private func socialUseCase() -> SocialUseCaseProtocol {
         let repository = SocialRepository(dependencies: SocialsRepositoryDependencies(dataSource: SocialRemoteDataSource()))

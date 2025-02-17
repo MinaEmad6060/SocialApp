@@ -11,6 +11,8 @@ import Combine
 //MARK: - UseCase
 protocol SocialUseCaseProtocol {
     func getUsers() -> AnyPublisher<[UserDomain], NetworkError>
+    func getAlbums(userId: Int) -> AnyPublisher<[AlbumDomain], NetworkError>
+    func getPhotos(albumId: Int) -> AnyPublisher<[PhotoDomain], NetworkError>
 }
 
 
@@ -22,6 +24,7 @@ final class SocialUseCase {
 }
 
 extension SocialUseCase: SocialUseCaseProtocol {
+    
     func getUsers() -> AnyPublisher<[UserDomain], NetworkError> {
         repository.getUsers()
             .map { entities in
@@ -29,6 +32,23 @@ extension SocialUseCase: SocialUseCaseProtocol {
             }
             .eraseToAnyPublisher()
     }
+    
+    func getAlbums(userId: Int) -> AnyPublisher<[AlbumDomain], NetworkError> {
+        repository.getAlbums(userId: userId)
+            .map { entities in
+                entities.map { $0.toDomain() }
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    func getPhotos(albumId: Int) -> AnyPublisher<[PhotoDomain], NetworkError> {
+        repository.getPhotos(albumId: albumId)
+            .map { entities in
+                entities.map { $0.toDomain() }
+            }
+            .eraseToAnyPublisher()
+    }
+    
 }
 
 

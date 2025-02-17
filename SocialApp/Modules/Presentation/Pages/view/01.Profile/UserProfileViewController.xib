@@ -12,6 +12,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserProfileViewController" customModule="SocialApp" customModuleProvider="target">
             <connections>
                 <outlet property="albumsTableView" destination="446-OO-AJj" id="SFR-Nf-Ju4"/>
+                <outlet property="userAddressLabel" destination="7Pn-bN-wMG" id="Mfv-AJ-eit"/>
+                <outlet property="userNameLabel" destination="qxf-p0-JbI" id="U4l-wK-VwR"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

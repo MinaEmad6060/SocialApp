@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         
         let navigationController = UINavigationController()
-        let coordinator = socialCoordinator(router: AppRouter(navigationController: navigationController))
+        let coordinator = SocialCoordinator(router: AppRouter(navigationController: navigationController))
         coordinator.displayProfileScreen()
         
         window?.rootViewController = navigationController
