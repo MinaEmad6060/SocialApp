@@ -7,39 +7,20 @@
 
 import UIKit
 
-//MARK: - COORDINATOR-PROTOCL
 protocol Coordinator {
     var router: Router { get }
     
-    func displayProfileScreen()
+    func showLoader()
+    func hideLoader()
 }
 
-
-//MARK: - APP-COORDINATOR-IMPLEMENTATION
-final class AppCoordinator: Coordinator {
-    
-    var router: any Router
-    
-    init(router: Router) {
-        self.router = router
+extension Coordinator {
+    func showLoader() {
+        LoaderManager.shared.shouldShowOverlay = true
+        LoaderManager.shared.startLoading()
     }
     
-    func displayProfileScreen() {
-        let viewController = AlbumDetailsViewController()
-        self.router.push(viewController, animated: true)
+    func hideLoader() {
+        LoaderManager.shared.stopLoading()
     }
-    
-    
-}
-
-
-//MARK: - INIT-USE-CASES
-extension AppCoordinator {
-    
-//    private func profileUseCase() -> ProfileUseCaseProtocol {
-//        let repository = HotelsRepository(dependencies: HotelsRepositoryDependencies(dataSource: HotelsRemoteDataSource()))
-//        let useCase = HotelsHomeUseCase(dependencies: HotelsUseCaseDependencies(repository: repository))
-//        return useCase
-//    }
-    
 }

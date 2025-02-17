@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class UserProfileViewController: UIViewController {
 
@@ -14,7 +15,19 @@ class UserProfileViewController: UIViewController {
 
     // MARK: - Properties
     let items = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"]
-
+    private var cancellables = Set<AnyCancellable>()
+    private var viewModel: SocialViewModelProtocol?
+    
+    //MARK: - INITIALIZER
+    init(viewModel: SocialViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - LifeCycle-Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,9 +57,9 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource{
     }
         
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        print("Selected: \(items[indexPath.row])")
         tableView.deselectRow(at: indexPath, animated: true)
-        
+        let coordinator = socialCoordinator(router: AppRouter(navigationController: navigationController!))
+        coordinator.displayAlbumScreen()
     }
     
 }

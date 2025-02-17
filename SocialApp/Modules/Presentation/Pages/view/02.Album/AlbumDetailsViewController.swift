@@ -17,33 +17,26 @@ class AlbumDetailsViewController: UIViewController {
     let items = Array(1...40) // Sample data
     let colors: [UIColor] = [.red, .blue, .green, .yellow, .orange, .purple, .cyan, .magenta, .brown, .gray]
     private var cancellables = Set<AnyCancellable>()
-    private let socialRemoteClient = SocialRemoteDataSource()
+    private var viewModel: SocialViewModelProtocol?
+
     
+    //MARK: - INITIALIZER
+    init(viewModel: SocialViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     // MARK: - LifeCycle-Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
-        fetchUsers()
+        viewModel?.getUsers()
+        bindViewModel()
     }
     
-    private func fetchUsers() {
-       print("Starting user fetch request...")
-
-       socialRemoteClient.getUsers()
-           .receive(on: DispatchQueue.main)
-           .sink(receiveCompletion: { completion in
-               switch completion {
-               case .finished:
-                   print("")
-               case .failure(let error):
-                   print("")
-               }
-           }, receiveValue: { users in
-//               print("Fetched users count: \(users.count)")
-//               print("Users: \(users)")
-           })
-           .store(in: &cancellables)
-   }
     
     // MARK: - Functions
     private func setupCollectionView() {
@@ -91,4 +84,24 @@ extension AlbumDetailsViewController: UICollectionViewDelegate, UICollectionView
         return 0
     }
 
+}
+
+
+//MARK: - VIEW MODEL BINDING
+private extension AlbumDetailsViewController {
+    func bindViewModel() {
+        bindReloadView()
+    }
+    
+    func bindReloadView() {
+        viewModel?.output.reloadView
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                guard let self else { return }
+                print("clean users : \(viewModel?.users)")
+                
+            }
+            .store(in: &cancellables)
+    }
+    
 }

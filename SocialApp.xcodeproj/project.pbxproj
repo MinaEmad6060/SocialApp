@@ -11,6 +11,8 @@
 		403E65F62D627F2300B7B5D6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 403E65F52D627F2300B7B5D6 /* Kingfisher */; };
 		403E65F92D627FB400B7B5D6 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 403E65F82D627FB400B7B5D6 /* Moya */; };
 		403E66092D6287CB00B7B5D6 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 403E66082D6287CB00B7B5D6 /* CombineMoya */; };
+		40585B342D6352D7006E02B8 /* NVActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = 40585B332D6352D7006E02B8 /* NVActivityIndicatorView */; };
+		40585B362D6352D7006E02B8 /* NVActivityIndicatorViewExtended in Frameworks */ = {isa = PBXBuildFile; productRef = 40585B352D6352D7006E02B8 /* NVActivityIndicatorViewExtended */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,7 +46,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				403E65F62D627F2300B7B5D6 /* Kingfisher in Frameworks */,
+				40585B342D6352D7006E02B8 /* NVActivityIndicatorView in Frameworks */,
 				403E65F32D627ED400B7B5D6 /* CombineCocoa in Frameworks */,
+				40585B362D6352D7006E02B8 /* NVActivityIndicatorViewExtended in Frameworks */,
 				403E66092D6287CB00B7B5D6 /* CombineMoya in Frameworks */,
 				403E65F92D627FB400B7B5D6 /* Moya in Frameworks */,
 			);
@@ -93,6 +97,8 @@
 				403E65F52D627F2300B7B5D6 /* Kingfisher */,
 				403E65F82D627FB400B7B5D6 /* Moya */,
 				403E66082D6287CB00B7B5D6 /* CombineMoya */,
+				40585B332D6352D7006E02B8 /* NVActivityIndicatorView */,
+				40585B352D6352D7006E02B8 /* NVActivityIndicatorViewExtended */,
 			);
 			productName = SocialApp;
 			productReference = 40A819A22D6230140023D9A7 /* SocialApp.app */;
@@ -126,6 +132,7 @@
 				403E65F12D627ED400B7B5D6 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
 				403E65F42D627F2300B7B5D6 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				403E65F72D627FB400B7B5D6 /* XCRemoteSwiftPackageReference "Moya" */,
+				40585B322D6352D7006E02B8 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 40A819A32D6230140023D9A7 /* Products */;
@@ -383,6 +390,14 @@
 				minimumVersion = 15.0.3;
 			};
 		};
+		40585B322D6352D7006E02B8 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ninjaprox/NVActivityIndicatorView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -405,6 +420,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 403E65F72D627FB400B7B5D6 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = CombineMoya;
+		};
+		40585B332D6352D7006E02B8 /* NVActivityIndicatorView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 40585B322D6352D7006E02B8 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */;
+			productName = NVActivityIndicatorView;
+		};
+		40585B352D6352D7006E02B8 /* NVActivityIndicatorViewExtended */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 40585B322D6352D7006E02B8 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */;
+			productName = NVActivityIndicatorViewExtended;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
