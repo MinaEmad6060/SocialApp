@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AlbumDetailsViewController" customModule="SocialApp" customModuleProvider="target">
             <connections>
                 <outlet property="photosCollectionView" destination="baZ-eo-LQA" id="85E-AJ-k4j"/>
+                <outlet property="searchBar" destination="2hk-kG-oiQ" id="Le7-y8-Ryj"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

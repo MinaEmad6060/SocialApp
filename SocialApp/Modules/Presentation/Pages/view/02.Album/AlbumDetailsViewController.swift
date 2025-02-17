@@ -13,7 +13,8 @@ class AlbumDetailsViewController: UIViewController {
 
     // MARK: - IBOutlets
     @IBOutlet weak var photosCollectionView: UICollectionView!
-
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     // MARK: - Properties
     
     private var cancellables = Set<AnyCancellable>()
@@ -23,6 +24,8 @@ class AlbumDetailsViewController: UIViewController {
     //Background colors act as placeholder in case of album photos can't be loaded
     let colors: [UIColor] = [.red, .blue, .green, .yellow, .orange, .purple, .cyan, .magenta, .brown, .gray]
     
+    private var filteredPhotos: [PhotoDomain] = []
+    private var isSearching = false
     //MARK: - INITIALIZER
     init(viewModel: SocialViewModelProtocol, albumId: Int) {
         self.viewModel = viewModel
@@ -37,6 +40,7 @@ class AlbumDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
+        setupSearchBar()
         bindViewModel()
         viewModel?.getPhotos(albumId: albumId ?? 0)
     }
@@ -49,30 +53,49 @@ class AlbumDetailsViewController: UIViewController {
         let nib = UINib(nibName: "PhotoCollectionViewCell", bundle: nil)
         photosCollectionView.register(nib, forCellWithReuseIdentifier: "PhotoCollectionViewCell")
     }
+    
+    // MARK: - Setup-SearchBar
+    private func setupSearchBar() {
+        searchBar.delegate = self
+        searchBar.searchTextField.addTarget(self, action: #selector(searchTextChanged), for: .editingChanged)
+    }
+        
+    @objc private func searchTextChanged() {
+        guard let text = searchBar.text?.lowercased(), !text.isEmpty else {
+            isSearching = false
+            photosCollectionView.reloadData()
+            return
+        }
+
+        isSearching = true
+        filteredPhotos = viewModel?.photos?.filter { photo in
+            guard let title = photo.title?.lowercased() else { return false }
+            return title.contains(text)
+        } ?? []
+
+        photosCollectionView.reloadData()
+    }
+
 }
 
-// MARK: - Setup-CollectionView
+// MARK: - CollectionView DataSource & Delegate
 extension AlbumDetailsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel?.photos?.count ?? 0
+        return isSearching ? filteredPhotos.count : viewModel?.photos?.count ?? 0
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCollectionViewCell", for: indexPath) as! PhotoCollectionViewCell
         
-        cell.photoLabel.text = viewModel?.photos?[indexPath.item].title
+        let photo = isSearching ? filteredPhotos[indexPath.item] : viewModel?.photos?[indexPath.item]
         
+        cell.photoLabel.text = photo?.title
         cell.albumPhotoImageView.kf.setImage(
-            with: URL(string: viewModel?.photos?[indexPath.item].url ?? ""),
-            completionHandler: {[weak self] result in
+            with: URL(string: photo?.url ?? ""),
+            completionHandler: { [weak self] result in
                 guard let self = self else { return }
-                switch result {
-                case .success(let value):
-                    print("Image loaded successfully: \(value.source.url?.absoluteString ?? "")")
-                case .failure(let error):
-                    print("Failed to load image: \(error.localizedDescription)")
+                if case .failure(_) = result {
                     cell.backgroundColor = self.colors[indexPath.item % self.colors.count]
                 }
             }
@@ -80,7 +103,6 @@ extension AlbumDetailsViewController: UICollectionViewDelegate, UICollectionView
         
         return cell
     }
-    
 }
     
 // MARK: - Setup-CollectionView-Layout
@@ -106,6 +128,16 @@ extension AlbumDetailsViewController: UICollectionViewDelegateFlowLayout{
         return 0
     }
 
+}
+
+// MARK: - UISearchBarDelegate
+extension AlbumDetailsViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        isSearching = false
+        photosCollectionView.reloadData()
+        searchBar.resignFirstResponder()
+    }
 }
 
 
