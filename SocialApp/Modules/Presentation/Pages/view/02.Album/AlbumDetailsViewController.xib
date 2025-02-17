@@ -11,6 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AlbumDetailsViewController" customModule="SocialApp" customModuleProvider="target">
             <connections>
+                <outlet property="albumNameLabel" destination="IzM-6v-lsy" id="jcS-QZ-3fe"/>
+                <outlet property="btnBackOutlet" destination="V2k-2H-Jlo" id="no9-xv-NGn"/>
                 <outlet property="photosCollectionView" destination="baZ-eo-LQA" id="85E-AJ-k4j"/>
                 <outlet property="searchBar" destination="2hk-kG-oiQ" id="Le7-y8-Ryj"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -22,16 +24,31 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="w4W-rN-SCF">
-                    <rect key="frame" x="16" y="59" width="361" height="94"/>
+                    <rect key="frame" x="8" y="58.999999999999993" width="377" height="98.333333333333314"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album-Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IzM-6v-lsy">
-                            <rect key="frame" x="0.0" y="0.0" width="361" height="30"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="mCU-Sr-ctf">
+                            <rect key="frame" x="0.0" y="0.0" width="377" height="34.333333333333336"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V2k-2H-Jlo">
+                                    <rect key="frame" x="0.0" y="0.0" width="40" height="34.333333333333336"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="40" id="jT0-ii-Ifa"/>
+                                    </constraints>
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="plain" image="arrowshape.turn.up.backward.fill" catalog="system">
+                                        <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </buttonConfiguration>
+                                </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album-Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IzM-6v-lsy">
+                                    <rect key="frame" x="56" y="0.0" width="321" height="34.333333333333336"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
                         <searchBar contentMode="redraw" placeholder="Search in images.." showsSearchResultsButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2hk-kG-oiQ">
-                            <rect key="frame" x="0.0" y="38" width="361" height="56"/>
+                            <rect key="frame" x="0.0" y="42.333333333333329" width="377" height="56"/>
                             <textInputTraits key="textInputTraits"/>
                             <scopeButtonTitles>
                                 <string>Title</string>
@@ -44,7 +61,7 @@
                     </subviews>
                 </stackView>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="baZ-eo-LQA">
-                    <rect key="frame" x="0.0" y="169" width="393" height="649"/>
+                    <rect key="frame" x="0.0" y="173.33333333333331" width="393" height="644.66666666666674"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="jJ6-t0-ruE">
                         <size key="itemSize" width="128" height="128"/>
@@ -58,17 +75,18 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="baZ-eo-LQA" secondAttribute="bottom" id="0so-IE-kNJ"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="w4W-rN-SCF" secondAttribute="trailing" constant="16" id="2DT-SH-FaI"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="w4W-rN-SCF" secondAttribute="trailing" constant="8" id="2DT-SH-FaI"/>
                 <constraint firstItem="baZ-eo-LQA" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="5zo-4e-97k"/>
                 <constraint firstItem="baZ-eo-LQA" firstAttribute="top" secondItem="w4W-rN-SCF" secondAttribute="bottom" constant="16" id="9FM-VY-biD"/>
                 <constraint firstItem="w4W-rN-SCF" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="PDD-Gf-4hi"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="baZ-eo-LQA" secondAttribute="trailing" id="SK7-CR-trc"/>
-                <constraint firstItem="w4W-rN-SCF" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="YnE-DF-cP6"/>
+                <constraint firstItem="w4W-rN-SCF" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="YnE-DF-cP6"/>
             </constraints>
             <point key="canvasLocation" x="20.610687022900763" y="-11.267605633802818"/>
         </view>
     </objects>
     <resources>
+        <image name="arrowshape.turn.up.backward.fill" catalog="system" width="128" height="104"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

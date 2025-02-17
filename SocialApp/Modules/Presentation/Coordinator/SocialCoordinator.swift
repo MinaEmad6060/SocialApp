@@ -8,7 +8,7 @@
 
 protocol SocialCoordinatorProtocol: Coordinator {
     func displayProfileScreen()
-    func displayAlbumScreen(albumId: Int)
+    func displayAlbumScreen(albumId: Int, albumName: String)
 }
 
 
@@ -27,9 +27,9 @@ final class SocialCoordinator: SocialCoordinatorProtocol {
         self.router.push(viewController, animated: true)
     }
     
-    func displayAlbumScreen(albumId: Int) {
+    func displayAlbumScreen(albumId: Int, albumName: String) {
         let viewModel = SocialViewModel(coordinator: self, useCase: socialUseCase())
-        let viewController = AlbumDetailsViewController(viewModel: viewModel, albumId: albumId)
+        let viewController = AlbumDetailsViewController(viewModel: viewModel, albumId: albumId, albumName: albumName)
         self.router.push(viewController, animated: true)
     }
     

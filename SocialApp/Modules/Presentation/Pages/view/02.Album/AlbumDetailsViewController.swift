@@ -7,19 +7,23 @@
 
 import UIKit
 import Combine
+import CombineCocoa
 import Kingfisher
 
 class AlbumDetailsViewController: UIViewController {
 
     // MARK: - IBOutlets
-    @IBOutlet weak var photosCollectionView: UICollectionView!
+    @IBOutlet weak var albumNameLabel: UILabel!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var photosCollectionView: UICollectionView!
+    @IBOutlet weak var btnBackOutlet: UIButton!
     
     // MARK: - Properties
     
     private var cancellables = Set<AnyCancellable>()
     private var viewModel: SocialViewModelProtocol?
     private var albumId: Int?
+    private var albumName: String?
     
     //Background colors act as placeholder in case of album photos can't be loaded
     let colors: [UIColor] = [.red, .blue, .green, .yellow, .orange, .purple, .cyan, .magenta, .brown, .gray]
@@ -27,9 +31,10 @@ class AlbumDetailsViewController: UIViewController {
     private var filteredPhotos: [PhotoDomain] = []
     private var isSearching = false
     //MARK: - INITIALIZER
-    init(viewModel: SocialViewModelProtocol, albumId: Int) {
+    init(viewModel: SocialViewModelProtocol, albumId: Int, albumName: String) {
         self.viewModel = viewModel
         self.albumId = albumId
+        self.albumName = albumName
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -39,20 +44,44 @@ class AlbumDetailsViewController: UIViewController {
     // MARK: - LifeCycle-Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupCollectionView()
-        setupSearchBar()
+        initViewcontroller()
         bindViewModel()
-        viewModel?.getPhotos(albumId: albumId ?? 0)
     }
     
     
     // MARK: - Functions
+    private func initViewcontroller() {
+        setupViews()
+        setupCollectionView()
+        setupSearchBar()
+        bindTapOnBackButton()
+    }
+    
+    private func setupViews() {
+        self.navigationItem.hidesBackButton = true
+        self.albumNameLabel.text = albumName
+        viewModel?.getPhotos(albumId: albumId ?? 0)
+    }
+    
+    
     private func setupCollectionView() {
         photosCollectionView.delegate = self
         photosCollectionView.dataSource = self
         let nib = UINib(nibName: "PhotoCollectionViewCell", bundle: nil)
         photosCollectionView.register(nib, forCellWithReuseIdentifier: "PhotoCollectionViewCell")
     }
+    
+    
+    private func bindTapOnBackButton() {
+        btnBackOutlet.setTitle("", for: .normal)
+        btnBackOutlet.tapPublisher
+            .sink { [weak self] in
+                guard let self = self else { return }
+                self.navigationController?.popViewController(animated: true)
+            }
+            .store(in: &cancellables)
+    }
+    
     
     // MARK: - Setup-SearchBar
     private func setupSearchBar() {

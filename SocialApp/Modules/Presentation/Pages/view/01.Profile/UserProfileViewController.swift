@@ -33,8 +33,15 @@ class UserProfileViewController: UIViewController {
     // MARK: - LifeCycle-Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTableView()
+        initViewcontroller()
+        
         bindReloadView()
+    }
+    
+    // MARK: - Faunctions
+    private func initViewcontroller() {
+        self.navigationItem.hidesBackButton = true
+        setupTableView()
         viewModel?.getUsers()
     }
     
@@ -53,7 +60,7 @@ class UserProfileViewController: UIViewController {
                 self.albumsTableView.deselectRow(at: indexPath, animated: true)
                 
                 let coordinator = SocialCoordinator(router: AppRouter(navigationController: self.navigationController!))
-                coordinator.displayAlbumScreen(albumId: self.viewModel?.albums?[indexPath.row].id ?? 0)
+                coordinator.displayAlbumScreen(albumId: self.viewModel?.albums?[indexPath.row].id ?? 0, albumName: self.viewModel?.albums?[indexPath.row].title ?? "")
             }
             .store(in: &cancellables)
     }
