@@ -26,7 +26,6 @@ class AlbumDetailsViewController: UIViewController {
     
     //Background colors act as placeholder in case of album photos can't be loaded
     let colors: [UIColor] = [.red, .blue, .green, .yellow, .orange, .purple, .cyan, .magenta, .brown, .gray]
-    
     private var filteredPhotos: [PhotoDomain] = []
     private var isSearching = false
     
@@ -141,7 +140,6 @@ extension AlbumDetailsViewController: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         let photo = isSearching ? filteredPhotos[indexPath.item] : viewModel?.photos?[indexPath.item]
-        print("didSelectItemPublisher")
         let coordinator = SocialCoordinator(router: AppRouter(navigationController: self.navigationController!))
         coordinator.displayPhotoScreen(imageURL: photo?.url ?? "")
     }

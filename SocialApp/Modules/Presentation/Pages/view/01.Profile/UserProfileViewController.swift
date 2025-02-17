@@ -34,7 +34,6 @@ class UserProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initViewcontroller()
-        
         bindReloadView()
     }
     

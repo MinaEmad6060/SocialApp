@@ -67,11 +67,9 @@ extension SocialViewModel {
                 }
             } receiveValue: { [weak self] users in
                 if let randomUser = users.randomElement() {
-                    print("Random user: \(randomUser)")
                     self?.user = randomUser
                     self?.getAlbums(userId: randomUser.id ?? 0)
                 }
-//                self?.output.reloadView.send()
             }
             .store(in: &cancellables)
     }

@@ -36,6 +36,7 @@ class PhotoDetailsViewController: UIViewController {
     }
     
     private func setupViews() {
+        btnShareOutlet.layer.cornerRadius = 8
         photoImageView.kf.setImage(
             with: URL(string: imageURL),
             completionHandler: { [weak self] result in
@@ -57,9 +58,17 @@ class PhotoDetailsViewController: UIViewController {
     
     private func shareImage() {
         guard let image = photoImageView.image else { return }
+        
         let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        
+        if let popoverController = activityViewController.popoverPresentationController {
+            popoverController.sourceView = btnShareOutlet
+            popoverController.sourceRect = btnShareOutlet.bounds
+        }
+        
         present(activityViewController, animated: true)
     }
+
 }
 
 

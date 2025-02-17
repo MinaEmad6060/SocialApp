@@ -9,10 +9,11 @@ import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
 
-    
+    // MARK: - IBOutlets
     @IBOutlet weak var albumPhotoImageView: UIImageView!
     @IBOutlet weak var photoLabel: UILabel!
     
+    // MARK: - Cell-Methods
     override func awakeFromNib() {
         super.awakeFromNib()
         photoLabel.isHidden = true

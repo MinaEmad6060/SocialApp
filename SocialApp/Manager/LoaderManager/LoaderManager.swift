@@ -10,11 +10,11 @@ import NVActivityIndicatorView
 
 class LoaderManager {
     // MARK: - Propertys
-    /// Privates
+
     private let indicator: NVActivityIndicatorView
     private let backgroundView: UIView
     private let overlayView: UIView
-    /// Publics
+
     var shouldShowOverlay: Bool = false
     
     // MARK: - Singleton
