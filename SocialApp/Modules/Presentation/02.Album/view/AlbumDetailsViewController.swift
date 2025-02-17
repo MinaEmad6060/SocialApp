@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class AlbumDetailsViewController: UIViewController {
 
@@ -15,12 +16,34 @@ class AlbumDetailsViewController: UIViewController {
     // MARK: - Properties
     let items = Array(1...40) // Sample data
     let colors: [UIColor] = [.red, .blue, .green, .yellow, .orange, .purple, .cyan, .magenta, .brown, .gray]
-
+    private var cancellables = Set<AnyCancellable>()
+    private let socialRemoteClient = SocialRemoteDataSource()
+    
     // MARK: - LifeCycle-Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
+        fetchUsers()
     }
+    
+    private func fetchUsers() {
+       print("Starting user fetch request...")
+
+       socialRemoteClient.getUsers()
+           .receive(on: DispatchQueue.main)
+           .sink(receiveCompletion: { completion in
+               switch completion {
+               case .finished:
+                   print("")
+               case .failure(let error):
+                   print("")
+               }
+           }, receiveValue: { users in
+//               print("Fetched users count: \(users.count)")
+//               print("Users: \(users)")
+           })
+           .store(in: &cancellables)
+   }
     
     // MARK: - Functions
     private func setupCollectionView() {

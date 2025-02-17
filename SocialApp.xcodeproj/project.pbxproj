@@ -10,6 +10,7 @@
 		403E65F32D627ED400B7B5D6 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 403E65F22D627ED400B7B5D6 /* CombineCocoa */; };
 		403E65F62D627F2300B7B5D6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 403E65F52D627F2300B7B5D6 /* Kingfisher */; };
 		403E65F92D627FB400B7B5D6 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 403E65F82D627FB400B7B5D6 /* Moya */; };
+		403E66092D6287CB00B7B5D6 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 403E66082D6287CB00B7B5D6 /* CombineMoya */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 			files = (
 				403E65F62D627F2300B7B5D6 /* Kingfisher in Frameworks */,
 				403E65F32D627ED400B7B5D6 /* CombineCocoa in Frameworks */,
+				403E66092D6287CB00B7B5D6 /* CombineMoya in Frameworks */,
 				403E65F92D627FB400B7B5D6 /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -90,6 +92,7 @@
 				403E65F22D627ED400B7B5D6 /* CombineCocoa */,
 				403E65F52D627F2300B7B5D6 /* Kingfisher */,
 				403E65F82D627FB400B7B5D6 /* Moya */,
+				403E66082D6287CB00B7B5D6 /* CombineMoya */,
 			);
 			productName = SocialApp;
 			productReference = 40A819A22D6230140023D9A7 /* SocialApp.app */;
@@ -397,6 +400,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 403E65F72D627FB400B7B5D6 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = Moya;
+		};
+		403E66082D6287CB00B7B5D6 /* CombineMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 403E65F72D627FB400B7B5D6 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = CombineMoya;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
