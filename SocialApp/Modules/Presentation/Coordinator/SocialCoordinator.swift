@@ -9,6 +9,7 @@
 protocol SocialCoordinatorProtocol: Coordinator {
     func displayProfileScreen()
     func displayAlbumScreen(albumId: Int, albumName: String)
+    func displayPhotoScreen(imageURL: String)
 }
 
 
@@ -31,6 +32,11 @@ final class SocialCoordinator: SocialCoordinatorProtocol {
         let viewModel = SocialViewModel(coordinator: self, useCase: socialUseCase())
         let viewController = AlbumDetailsViewController(viewModel: viewModel, albumId: albumId, albumName: albumName)
         self.router.push(viewController, animated: true)
+    }
+    
+    func displayPhotoScreen(imageURL: String) {
+        let viewController = PhotoDetailsViewController(imageURL: imageURL)
+        self.router.present(viewController)
     }
     
 }

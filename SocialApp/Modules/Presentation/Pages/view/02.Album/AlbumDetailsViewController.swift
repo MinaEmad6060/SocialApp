@@ -19,7 +19,6 @@ class AlbumDetailsViewController: UIViewController {
     @IBOutlet weak var btnBackOutlet: UIButton!
     
     // MARK: - Properties
-    
     private var cancellables = Set<AnyCancellable>()
     private var viewModel: SocialViewModelProtocol?
     private var albumId: Int?
@@ -30,6 +29,7 @@ class AlbumDetailsViewController: UIViewController {
     
     private var filteredPhotos: [PhotoDomain] = []
     private var isSearching = false
+    
     //MARK: - INITIALIZER
     init(viewModel: SocialViewModelProtocol, albumId: Int, albumName: String) {
         self.viewModel = viewModel
@@ -41,6 +41,7 @@ class AlbumDetailsViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     // MARK: - LifeCycle-Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,14 +65,6 @@ class AlbumDetailsViewController: UIViewController {
     }
     
     
-    private func setupCollectionView() {
-        photosCollectionView.delegate = self
-        photosCollectionView.dataSource = self
-        let nib = UINib(nibName: "PhotoCollectionViewCell", bundle: nil)
-        photosCollectionView.register(nib, forCellWithReuseIdentifier: "PhotoCollectionViewCell")
-    }
-    
-    
     private func bindTapOnBackButton() {
         btnBackOutlet.setTitle("", for: .normal)
         btnBackOutlet.tapPublisher
@@ -80,6 +73,15 @@ class AlbumDetailsViewController: UIViewController {
                 self.navigationController?.popViewController(animated: true)
             }
             .store(in: &cancellables)
+    }
+    
+    
+    // MARK: - init-CollectionView
+    private func setupCollectionView() {
+        photosCollectionView.delegate = self
+        photosCollectionView.dataSource = self
+        let nib = UINib(nibName: "PhotoCollectionViewCell", bundle: nil)
+        photosCollectionView.register(nib, forCellWithReuseIdentifier: "PhotoCollectionViewCell")
     }
     
     
@@ -119,18 +121,29 @@ extension AlbumDetailsViewController: UICollectionViewDelegate, UICollectionView
         
         let photo = isSearching ? filteredPhotos[indexPath.item] : viewModel?.photos?[indexPath.item]
         
-        cell.photoLabel.text = photo?.title
+        
         cell.albumPhotoImageView.kf.setImage(
-            with: URL(string: photo?.url ?? ""),
+            with: URL(string: photo?.thumbnailUrl ?? ""),
             completionHandler: { [weak self] result in
                 guard let self = self else { return }
                 if case .failure(_) = result {
+                    cell.photoLabel.isHidden = false
+                    cell.photoLabel.text = "600x600"
                     cell.backgroundColor = self.colors[indexPath.item % self.colors.count]
                 }
             }
         )
         
         return cell
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        let photo = isSearching ? filteredPhotos[indexPath.item] : viewModel?.photos?[indexPath.item]
+        print("didSelectItemPublisher")
+        let coordinator = SocialCoordinator(router: AppRouter(navigationController: self.navigationController!))
+        coordinator.displayPhotoScreen(imageURL: photo?.url ?? "")
     }
 }
     
